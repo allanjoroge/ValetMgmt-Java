@@ -70,9 +70,7 @@ public class VehicleServiceImpl implements VehicleService {
         log.debug("vehicle search request {}", searchRequest);
 
         Sort sortOrder = createSortOrder(searchRequest);
-
         PageRequest paging = PageRequest.of(searchRequest.getPageNo(), searchRequest.getPageSize(), sortOrder);
-
         BooleanBuilder predicate = VehicleRepository.createSearchPredicate(searchRequest);
 
         Page<Vehicle> pageVehicles = vehicleRepository.findAll(predicate, paging);
