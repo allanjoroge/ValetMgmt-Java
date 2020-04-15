@@ -12,13 +12,13 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleSearchRequest {
+public class SearchRequest {
 
     //advanced search/filtering
     private Long location;
     private Date arrivalDate;
-    //    private Long valet;
-//    private Long owner;
+    private Long valet;
+    private Long owner;
     private Integer ticketNumber;
     //sorting
     private String[] sortColumns;

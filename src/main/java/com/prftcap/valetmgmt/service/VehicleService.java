@@ -1,12 +1,12 @@
 package com.prftcap.valetmgmt.service;
 
 import com.prftcap.valetmgmt.dto.VehicleDTO;
-import com.prftcap.valetmgmt.dto.VehicleSearchRequest;
+import com.prftcap.valetmgmt.dto.SearchRequest;
 import org.springframework.data.domain.Page;
 
 public interface VehicleService {
 
-    Page<VehicleDTO> search(VehicleSearchRequest searchRequest);
+    Page<VehicleDTO> search(SearchRequest searchRequest);
 
     VehicleDTO saveVehicle(VehicleDTO vehicleDTO);
 

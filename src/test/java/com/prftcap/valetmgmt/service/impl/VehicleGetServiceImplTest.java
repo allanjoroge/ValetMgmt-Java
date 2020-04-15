@@ -2,11 +2,10 @@ package com.prftcap.valetmgmt.service.impl;
 
 
 import com.prftcap.valetmgmt.dto.VehicleDTO;
-import com.prftcap.valetmgmt.dto.VehicleSearchRequest;
+import com.prftcap.valetmgmt.dto.SearchRequest;
 import com.prftcap.valetmgmt.entity.Vehicle;
 import com.prftcap.valetmgmt.mapper.Mapper;
 import com.prftcap.valetmgmt.repository.VehicleRepository;
-import com.prftcap.valetmgmt.service.impl.VehicleServiceImpl;
 import com.querydsl.core.types.Predicate;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public class VehicleGetServiceImplTest {
     private VehicleServiceImpl vehicleService;
 
     @InjectMocks
-    private VehicleSearchRequest searchRequest;
+    private SearchRequest searchRequest;
 
     @Test
     public void searchVehicles() {
@@ -104,7 +103,7 @@ public class VehicleGetServiceImplTest {
     @Test
     public void sortOrderDefaultByColumnAndDirection() {
 
-        Sort sortOrder = vehicleService.createSortOrder(new VehicleSearchRequest());
+        Sort sortOrder = vehicleService.createSortOrder(new SearchRequest());
 
         MatcherAssert.assertThat(sortOrder.isEmpty(), is(false));
         List<Sort.Order> orderList = sortOrder.toList();
@@ -117,7 +116,7 @@ public class VehicleGetServiceImplTest {
     @Test
     public void sortOrderByColumnAndDirection() {
 
-        Sort sortOrder = vehicleService.createSortOrder(VehicleSearchRequest.builder().sortColumns(new String[]{"locationId", "ticketNumber"}).sortDirections(new String[]{"DESC", "ASC"}).build());
+        Sort sortOrder = vehicleService.createSortOrder(SearchRequest.builder().sortColumns(new String[]{"locationId", "ticketNumber"}).sortDirections(new String[]{"DESC", "ASC"}).build());
 
         MatcherAssert.assertThat(sortOrder.isEmpty(), is(false));
 

@@ -38,7 +38,7 @@ public class VehiclePutControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String dtoAsString = mapper.writeValueAsString(vehicleDTO);
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/vehicles/14").content(dtoAsString).contentType("application/json");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/vehicles").content(dtoAsString).contentType("application/json");
         mockMvcMock.perform(requestBuilder).andExpect((status().isNoContent()));
 
         verify(vehicleServiceMock, times(1)).updateVehicle(vehicleDTO);

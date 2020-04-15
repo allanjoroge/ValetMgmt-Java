@@ -1,7 +1,7 @@
 package com.prftcap.valetmgmt.controllers;
 
 import com.prftcap.valetmgmt.dto.VehicleDTO;
-import com.prftcap.valetmgmt.dto.VehicleSearchRequest;
+import com.prftcap.valetmgmt.dto.SearchRequest;
 import com.prftcap.valetmgmt.service.VehicleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class VehicleController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<VehicleDTO> search(
-            VehicleSearchRequest searchRequest) {
+            SearchRequest searchRequest) {
 
         return vehicleService.search(searchRequest);
     }
@@ -43,7 +43,7 @@ public class VehicleController {
         return vehicleService.saveVehicle(vehicleDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateVehicleById(@RequestBody VehicleDTO vehicleDTO) {
         vehicleService.updateVehicle(vehicleDTO);

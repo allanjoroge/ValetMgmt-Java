@@ -1,7 +1,7 @@
 package com.prftcap.valetmgmt.repository;
 
 
-import com.prftcap.valetmgmt.dto.VehicleSearchRequest;
+import com.prftcap.valetmgmt.dto.SearchRequest;
 import com.prftcap.valetmgmt.entity.QVehicle;
 import com.prftcap.valetmgmt.entity.Vehicle;
 import com.querydsl.core.BooleanBuilder;
@@ -15,25 +15,25 @@ import java.sql.Date;
 @Repository
 public interface VehicleRepository extends PagingAndSortingRepository<Vehicle, Long>, QuerydslPredicateExecutor<Vehicle> {
 
-    static BooleanBuilder createSearchPredicate(VehicleSearchRequest searchRequest) {
+    static BooleanBuilder createSearchPredicate(SearchRequest request) {
 
         BooleanBuilder predicate = new BooleanBuilder();
 
-        if (searchRequest.getLocation() != null) {
-            predicate.and(QVehicle.vehicle.location.id.in(searchRequest.getLocation()));
+        if (request.getLocation() != null) {
+            predicate.and(QVehicle.vehicle.location.id.in(request.getLocation()));
         }
-        if (searchRequest.getTicketNumber() != null) {
-            predicate.and(QVehicle.vehicle.ticketNumber.in(searchRequest.getTicketNumber()));
+        if (request.getTicketNumber() != null) {
+            predicate.and(QVehicle.vehicle.ticketNumber.in(request.getTicketNumber()));
         }
-//        if (searchRequest.getArrivalDate() != null) {
-//            predicate.and(QVehicle.vehicle.arrivalDate.(searchRequest.getArrivalDate()));
-//        }
-//        if (searchRequest.getOwnerId() != null) {
-//            predicate.and(QVehicle.vehicle.owner.id.in(searchRequest.getOwnerId()));
-//        }
-//        if (searchRequest.getValetId() != null) {
-//            predicate.and(QVehicle.vehicle.valet.id.in(searchRequest.getValetId()));
-//        }
+        if (request.getArrivalDate() != null) {
+            predicate.and(QVehicle.vehicle.arrivalDate.after((Date) request.getArrivalDate()));
+        }
+        if (request.getOwner() != null) {
+            predicate.and(QVehicle.vehicle.owner.id.in(request.getOwner()));
+        }
+        if (request.getValet() != null) {
+            predicate.and(QVehicle.vehicle.valet.id.in(request.getValet()));
+        }
         return predicate;
     }
 }

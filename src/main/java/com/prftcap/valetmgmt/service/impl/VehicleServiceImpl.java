@@ -2,7 +2,7 @@ package com.prftcap.valetmgmt.service.impl;
 
 
 import com.prftcap.valetmgmt.dto.VehicleDTO;
-import com.prftcap.valetmgmt.dto.VehicleSearchRequest;
+import com.prftcap.valetmgmt.dto.SearchRequest;
 import com.prftcap.valetmgmt.entity.Vehicle;
 import com.prftcap.valetmgmt.exception.NotFoundException;
 import com.prftcap.valetmgmt.mapper.Mapper;
@@ -65,13 +65,13 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Page<VehicleDTO> search(VehicleSearchRequest searchRequest) {
+    public Page<VehicleDTO> search(SearchRequest request) {
 
-        log.debug("vehicle search request {}", searchRequest);
+        log.debug("vehicle search request {}", request);
 
-        Sort sortOrder = createSortOrder(searchRequest);
-        PageRequest paging = PageRequest.of(searchRequest.getPageNo(), searchRequest.getPageSize(), sortOrder);
-        BooleanBuilder predicate = VehicleRepository.createSearchPredicate(searchRequest);
+        Sort sortOrder = createSortOrder(request);
+        PageRequest paging = PageRequest.of(request.getPageNo(), request.getPageSize(), sortOrder);
+        BooleanBuilder predicate = VehicleRepository.createSearchPredicate(request);
 
         Page<Vehicle> pageVehicles = vehicleRepository.findAll(predicate, paging);
 
@@ -84,7 +84,7 @@ public class VehicleServiceImpl implements VehicleService {
         return new PageImpl<>(vDTOs, paging, pageVehicles.getTotalElements());
     }
 
-    protected Sort createSortOrder(VehicleSearchRequest request) {
+    protected Sort createSortOrder(SearchRequest request) {
 
         List<Sort.Order> orderList = new ArrayList<>();
 
